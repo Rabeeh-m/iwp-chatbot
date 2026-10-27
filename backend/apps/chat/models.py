@@ -1,6 +1,8 @@
 import uuid
 import hashlib
+import re
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class ChatSession(models.Model):
@@ -31,6 +33,20 @@ class ChatSession(models.Model):
             models.Index(fields=['status']),
         ]
     
+    def clean(self):
+        super().clean()
+        errors = {}
+        if self.source_url and not re.match(r'^https?://', self.source_url):
+            errors['source_url'] = 'Source URL must be a valid HTTP/HTTPS URL.'
+        if self.referrer_url and not re.match(r'^https?://', self.referrer_url):
+            errors['referrer_url'] = 'Referrer URL must be a valid HTTP/HTTPS URL.'
+        if errors:
+            raise ValidationError(errors)
+    
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+    
     def __str__(self):
         return f"Session {self.public_session_id[:8]}"
 
@@ -54,6 +70,20 @@ class ChatMessage(models.Model):
         indexes = [
             models.Index(fields=['session', 'created_at']),
         ]
+    
+    def clean(self):
+        super().clean()
+        errors = {}
+        if not self.content or not self.content.strip():
+            errors['content'] = 'Message content cannot be empty.'
+        elif len(self.content.strip()) > 10000:
+            errors['content'] = 'Message content cannot exceed 10000 characters.'
+        if errors:
+            raise ValidationError(errors)
+    
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.role} message in {self.session.public_session_id[:8]}"
