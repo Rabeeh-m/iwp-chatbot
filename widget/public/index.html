@@ -61,27 +61,35 @@
 <body>
   <div class="card">
     <h1>IWP Chatbot Widget</h1>
-    <span class="badge">✓ Live</span>
+    <span class="badge">&#10003; Live</span>
     <p>
-      This page hosts the embeddable chatbot widget script. Add the snippet below to any webpage to embed the IWP chatbot.
+      This page hosts the embeddable chatbot widget script. Add the snippet below to any webpage to embed the IWP chatbot. The chatbot is also live on this page — click the yellow button in the bottom-right corner!
     </p>
     <h2>Embed Code</h2>
     <pre id="snippet"></pre>
     <div class="note">
-      Replace <strong>YOUR_BACKEND_URL</strong> with your deployed backend API URL (e.g. your Render or Railway URL).
+      The widget is already connected to the live backend. Copy the snippet above and paste it into any webpage.
     </div>
   </div>
 
+  <script src="/iwp-chatbot.iife.js"></script>
   <script>
-    const origin = window.location.origin;
-    const snippet = `&lt;script src="${origin}/iwp-chatbot.iife.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-  const widget = new IWPChatbot({
-    apiUrl: 'YOUR_BACKEND_URL/api/v1'
-  });
-  widget.init();
-&lt;/script&gt;`;
-    document.getElementById('snippet').innerHTML = snippet;
+    var BACKEND_URL = 'https://iwp-chatbot.onrender.com/api/v1';
+    var origin = window.location.origin;
+
+    document.getElementById('snippet').textContent =
+      '<script src="' + origin + '/iwp-chatbot.iife.js"><\/script>\n' +
+      '<script>\n' +
+      '  const widget = new IWPChatbot({\n' +
+      '    apiUrl: "https://iwp-chatbot.onrender.com/api/v1"\n' +
+      '  });\n' +
+      '  widget.init();\n' +
+      '<\/script>';
+
+    if (window.IWPChatbot) {
+      var widget = new IWPChatbot({ apiUrl: BACKEND_URL });
+      widget.init();
+    }
   </script>
 </body>
 </html>
