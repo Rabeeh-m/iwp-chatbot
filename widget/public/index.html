@@ -3,20 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>IWP Chatbot Test</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=1">
 </head>
 <body style="font-family:sans-serif;padding:40px;background:#fff7ed">
   <h1>Indian Wedding Planners</h1>
-  <p>Widget test</p>
-  <script src="iwp-chatbot.iife.js"></script>
+  <p>Chatbot test</p>
+  <script src="iwp-chatbot.iife.js?v=1"></script>
   <script>
-    window.onload = function() {
+    window.addEventListener('load', function() {
       var W = window.IWPChatbot;
       if (W) {
-        var w = new W({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
-        w.init();
+        try {
+          var w = new W({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
+          w.init();
+        } catch(e) { console.log(e); }
       }
-    };
+    });
   </script>
 </body>
 </html>
