@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>Test</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Test Page</h1>
-  <script src="iwp-chatbot.iife.js"></script>
+  <script src="./iwp-chatbot.iife.js"></script>
   <script>
-    window.onload = function() {
-      console.log(typeof window.IWPChatbot);
-      var w = new window.IWPChatbot({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
-      w.init();
-      console.log('done');
-    };
+    window.addEventListener('load', function() {
+      if (window.IWPChatbot) {
+        var w = new window.IWPChatbot({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
+        w.init();
+      }
+    });
   </script>
 </body>
 </html>
