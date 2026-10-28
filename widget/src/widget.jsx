@@ -1,7 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import ChatWidget from './ChatWidget'
-import './widget.css'
+import styles from './widget.css?inline'
+
+if (typeof document !== 'undefined') {
+  const existing = document.querySelector('style[data-iwp-widget]')
+  if (!existing) {
+    const style = document.createElement('style')
+    style.setAttribute('data-iwp-widget', 'true')
+    style.textContent = styles
+    document.head.appendChild(style)
+  }
+}
 
 class IWPChatbotWidget {
   constructor(options = {}) {
@@ -14,7 +24,8 @@ class IWPChatbotWidget {
   }
   
   init() {
-    if (this.mountPoint) return
+    if (typeof document === 'undefined') return
+    if (this.mountPoint && document.body.contains(this.mountPoint)) return
     this.mountPoint = document.createElement('div')
     this.mountPoint.id = 'iwp-chatbot-widget-root'
     document.body.appendChild(this.mountPoint)
