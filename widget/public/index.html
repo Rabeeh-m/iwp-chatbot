@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IWP Chatbot</title>
 </head>
 <body style="font-family:sans-serif;padding:40px;background:#fef7ed">
   <h1>Indian Wedding Planners</h1>
   <p>Chatbot widget</p>
-  <script src="iwp-chatbot.iife.js"></script>
+  <script src="./iwp-chatbot.iife.js"></script>
   <script>
     window.addEventListener('load', function() {
       if (window.IWPChatbot) {
-        var w = new window.IWPChatbot({
-          apiUrl: 'https://iwp-chatbot-backend.onrender.com/api/v1',
-          position: 'bottom-right'
-        });
+        var w = new window.IWPChatbot({apiUrl: 'https://iwp-chatbot-backend.onrender.com/api/v1', position: 'bottom-right'});
         w.init();
       }
     });
