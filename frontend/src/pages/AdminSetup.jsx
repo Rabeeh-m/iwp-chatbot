@@ -7,8 +7,7 @@ const AdminSetup = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    password: '',
-    setup_token: ''
+    password: ''
   })
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -55,7 +54,7 @@ const AdminSetup = () => {
             <span>Admin Setup</span>
           </div>
           <h2 className="text-2xl font-bold text-gray-900">Create Admin Account</h2>
-          <p className="text-sm text-gray-500 mt-1">Temporary setup - use with care</p>
+          <p className="text-sm text-gray-500 mt-1">Temporary setup</p>
         </div>
         
         {error && (
@@ -112,21 +111,6 @@ const AdminSetup = () => {
                 onChange={handleChange}
                 className="w-full pl-10 pr-3 py-3 border border-gray-200 bg-gray-50/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
                 placeholder="Enter password"
-                required
-              />
-            </div>
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2 text-sm font-semibold">Setup Token</label>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="password"
-                name="setup_token"
-                value={formData.setup_token}
-                onChange={handleChange}
-                className="w-full pl-10 pr-3 py-3 border border-gray-200 bg-gray-50/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
-                placeholder="Enter setup token"
                 required
               />
             </div>

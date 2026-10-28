@@ -21,15 +21,7 @@ from apps.chat.models import ChatSession, ChatMessage
 @permission_classes([AllowAny])
 @authentication_classes([])
 def create_admin_setup(request):
-    setup_token = getattr(settings, 'ADMIN_SETUP_TOKEN', None) or request.META.get('HTTP_X_SETUP_TOKEN') or request.data.get('setup_token')
-    expected_token = getattr(settings, 'ADMIN_SETUP_TOKEN', None)
-    
-    if not expected_token:
-        return Response({'error': 'Admin setup not configured'}, status=status.HTTP_403_FORBIDDEN)
-    
-    if setup_token != expected_token:
-        return Response({'error': 'Invalid setup token'}, status=status.HTTP_403_FORBIDDEN)
-    
+    # Temporary setup - no token required as requested
     # Only allow creating admin if no superuser exists
     if User.objects.filter(is_superuser=True).exists():
         return Response({'error': 'Admin account already exists'}, status=status.HTTP_403_FORBIDDEN)
