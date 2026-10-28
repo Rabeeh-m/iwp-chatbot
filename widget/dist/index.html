@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IWP Chatbot - Test Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #fef7ed 0%, #ffffff 50%, #fef3c7 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      text-align: center;
+      background: white;
+      padding: 60px 40px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(146, 64, 14, 0.15);
+      border: 1px solid #fde68a;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+    }
+    .logo-text {
+      color: white;
+      font-size: 28px;
+      font-weight: 800;
+    }
+    h1 {
+      color: #92400e;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    p {
+      color: #78350f;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .hint {
+      background: #fef3c7;
+      padding: 16px 24px;
+      border-radius: 12px;
+      color: #92400e;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <span class="logo-text">IWP</span>
+    </div>
+    <h1>Indian Wedding Planners</h1>
+    <p>AI-Powered Chatbot Test Page<br>Click the chat button in the bottom-right corner to start a conversation</p>
+    <div class="hint">
+      💬 Look for the chat widget at the bottom-right
+    </div>
+  </div>
+
+  <script src="/iwp-chatbot.iife.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+      try {
+        if (typeof window.IWPChatbot !== 'undefined') {
+          const widget = new window.IWPChatbot({
+            apiUrl: 'https://iwp-chatbot-backend.onrender.com/api/v1',
+            position: 'bottom-right'
+          });
+          widget.init();
+          console.log('Widget initialized');
+        } else {
+          console.error('IWPChatbot not found');
+        }
+      } catch (e) {
+        console.error('Widget init error:', e);
+      }
+    });
+  </script>
+</body>
+</html>

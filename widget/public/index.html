@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IWP Chatbot - Test Page</title>
+  <link rel="stylesheet" href="/style.css">
   <style>
     * {
       margin: 0;
@@ -88,9 +89,6 @@
             position: 'bottom-right'
           });
           widget.init();
-          console.log('Widget initialized');
-        } else {
-          console.error('IWPChatbot not found');
         }
       } catch (e) {
         console.error('Widget init error:', e);
