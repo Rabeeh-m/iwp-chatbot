@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IWP Chatbot</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body style="font-family:sans-serif;padding:40px;background:#fef7ed">
   <h1>Indian Wedding Planners</h1>
   <p>Chatbot</p>
+  <div id="chatbot-container"></div>
   <script src="iwp-chatbot.iife.js"></script>
   <script>
-    window.addEventListener('load', function() {
-      if (typeof IWPChatbot !== 'undefined') {
-        var w = new IWPChatbot({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
-        w.init();
-      } else if (window.IWPChatbot) {
-        var w = new window.IWPChatbot({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
+    window.onload = function() {
+      var IWP = window.IWPChatbot;
+      if (IWP) {
+        var w = new IWP({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
         w.init();
       }
-    });
+    };
   </script>
 </body>
 </html>
