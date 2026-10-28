@@ -4,26 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IWP Chatbot</title>
-  <style>
-    body{margin:0;padding:40px;font-family:sans-serif;background:#fef7ed;min-height:100vh}
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="margin:0;padding:40px;font-family:sans-serif;background:#fef7ed;min-height:100vh">
   <h1>Indian Wedding Planners</h1>
   <p>Chatbot widget should appear in bottom-right corner</p>
   <script src="iwp-chatbot.iife.js"></script>
-  <script src="style.css" onload=""></script>
   <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        try {
-          if (window.IWPChatbot) {
-            var w = new window.IWPChatbot({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
-            w.init();
-          }
-        } catch(e) { console.error(e); }
-      }, 500);
-    });
+    function loadWidget() {
+      if (typeof window.IWPChatbot !== 'undefined') {
+        var widget = new window.IWPChatbot({
+          apiUrl: 'https://iwp-chatbot-backend.onrender.com/api/v1',
+          position: 'bottom-right'
+        });
+        widget.init();
+      } else {
+        setTimeout(loadWidget, 500);
+      }
+    }
+    if (document.readyState === 'complete') {
+      loadWidget();
+    } else {
+      window.addEventListener('load', loadWidget);
+    }
   </script>
 </body>
 </html>
