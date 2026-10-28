@@ -82,15 +82,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-_default_cors = 'http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173'
-_cors_origins = config('CORS_ALLOWED_ORIGINS', default=_default_cors).split(',')
-CORS_ALLOWED_ORIGINS = [o.strip() for o in _cors_origins if o.strip()]
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5173']
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=False, cast=bool)
+CORS_ALLOW_ALL_ORIGINS = True
 
-_default_csrf = 'http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173'
-_csrf_origins = config('CSRF_TRUSTED_ORIGINS', default=_default_csrf).split(',')
-CSRF_TRUSTED_ORIGINS = [o.strip() for o in _csrf_origins if o.strip()]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5173']
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -104,8 +100,8 @@ REST_FRAMEWORK = {
 }
 
 SESSION_COOKIE_HTTPONLY = False
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = not DEBUG  # Secure in production (HTTPS)
+SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = not DEBUG  # Secure in production (HTTPS)
+CSRF_COOKIE_SAMESITE = None
+CSRF_COOKIE_SECURE = False
