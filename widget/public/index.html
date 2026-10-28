@@ -8,26 +8,18 @@
 </head>
 <body style="font-family:sans-serif;padding:40px;background:#fef7ed">
   <h1>Indian Wedding Planners</h1>
-  <p>Chatbot widget</p>
+  <p>Chatbot widget test page</p>
   <script src="iwp-chatbot.iife.js"></script>
   <script>
-    (function(){
-      function ready(fn){
-        if(document.readyState!='loading') fn();
-        else document.addEventListener('DOMContentLoaded',fn);
+    window.addEventListener('load', function() {
+      if (window.IWPChatbot) {
+        var widget = new window.IWPChatbot({
+          apiUrl: 'https://iwp-chatbot-backend.onrender.com/api/v1',
+          position: 'bottom-right'
+        });
+        widget.init();
       }
-      ready(function(){
-        setTimeout(function(){
-          try{
-            var C = window.IWPChatbot || (typeof IWPChatbot!=='undefined'?IWPChatbot:null);
-            if(C){
-              var w = new C({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1',position:'bottom-right'});
-              w.init();
-            }
-          }catch(e){console.log(e)}
-        }, 50);
-      });
-    })();
+    });
   </script>
 </body>
 </html>
