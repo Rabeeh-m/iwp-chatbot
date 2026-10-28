@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IWP Chatbot - Test Page</title>
+  <link rel="stylesheet" href="/style.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -46,31 +47,19 @@
     <div class="hint">💬 Look for the chat widget at the bottom-right</div>
   </div>
 
+  <div id="widget-test"></div>
   <script src="/iwp-chatbot.iife.js"></script>
   <script>
-    function initWidget() {
-      console.log('Checking for IWPChatbot...');
-      if (typeof window.IWPChatbot !== 'undefined') {
-        console.log('Found IWPChatbot, initializing...');
-        try {
-          const widget = new window.IWPChatbot({
-            apiUrl: 'https://iwp-chatbot-backend.onrender.com/api/v1',
-            position: 'bottom-right'
-          });
-          widget.init();
-          console.log('Widget init called');
-        } catch (e) {
-          console.error('Widget error:', e);
+    setTimeout(function() {
+      try {
+        console.log('IWPChatbot:', typeof window.IWPChatbot);
+        if (window.IWPChatbot) {
+          var w = new window.IWPChatbot({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
+          w.init();
+          console.log('init done');
         }
-      } else {
-        console.error('IWPChatbot not loaded');
-      }
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initWidget);
-    } else {
-      initWidget();
-    }
+      } catch(e) { console.error('err', e); }
+    }, 1000);
   </script>
 </body>
 </html>
