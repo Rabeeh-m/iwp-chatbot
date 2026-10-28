@@ -11,15 +11,23 @@
   <p>Chatbot widget</p>
   <script src="iwp-chatbot.iife.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof IWPChatbot !== 'undefined') {
-        var w = new IWPChatbot({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
-        w.init();
-      } else if (window.IWPChatbot) {
-        var w = new window.IWPChatbot({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1', position:'bottom-right'});
-        w.init();
+    (function(){
+      function ready(fn){
+        if(document.readyState!='loading') fn();
+        else document.addEventListener('DOMContentLoaded',fn);
       }
-    });
+      ready(function(){
+        setTimeout(function(){
+          try{
+            var C = window.IWPChatbot || (typeof IWPChatbot!=='undefined'?IWPChatbot:null);
+            if(C){
+              var w = new C({apiUrl:'https://iwp-chatbot-backend.onrender.com/api/v1',position:'bottom-right'});
+              w.init();
+            }
+          }catch(e){console.log(e)}
+        }, 50);
+      });
+    })();
   </script>
 </body>
 </html>
