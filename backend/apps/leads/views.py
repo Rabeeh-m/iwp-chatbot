@@ -21,11 +21,7 @@ from apps.chat.models import ChatSession, ChatMessage
 @permission_classes([AllowAny])
 @authentication_classes([])
 def create_admin_setup(request):
-    # Temporary setup - no token required as requested
-    # Only allow creating admin if no superuser exists
-    if User.objects.filter(is_superuser=True).exists():
-        return Response({'error': 'Admin account already exists'}, status=status.HTTP_403_FORBIDDEN)
-    
+    # Temporary setup - anyone can create/update admin
     username = request.data.get('username', '').strip()
     email = request.data.get('email', '').strip()
     password = request.data.get('password', '')
@@ -33,17 +29,21 @@ def create_admin_setup(request):
     if not username or not password:
         return Response({'error': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
     
-    if User.objects.filter(username=username).exists():
-        return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
-    
-    if email and User.objects.filter(email=email).exists():
-        return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
-    
     try:
-        user = User.objects.create_superuser(username=username, email=email, password=password)
-        user.is_staff = True
-        user.save()
-        return Response({'message': 'Admin account created successfully'}, status=status.HTTP_201_CREATED)
+        # Check if user exists
+        user = User.objects.filter(username=username).first()
+        if user:
+            user.email = email
+            user.set_password(password)
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
+            return Response({'message': 'Admin account updated successfully'}, status=status.HTTP_200_OK)
+        else:
+            user = User.objects.create_superuser(username=username, email=email, password=password)
+            user.is_staff = True
+            user.save()
+            return Response({'message': 'Admin account created successfully'}, status=status.HTTP_201_CREATED)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 

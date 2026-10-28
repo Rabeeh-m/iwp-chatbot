@@ -27,13 +27,13 @@ const AdminSetup = () => {
     setSuccess('')
     setLoading(true)
     try {
-      await authAPI.createAdmin(formData)
-      setSuccess('Admin account created successfully! Redirecting to login...')
+      const res = await authAPI.createAdmin(formData)
+      setSuccess(res.data.message + ' Redirecting to login...')
       setTimeout(() => {
         navigate('/login')
       }, 2000)
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to create admin account')
+      setError(err.response?.data?.error || 'Failed to create/update admin account')
     } finally {
       setLoading(false)
     }
@@ -53,7 +53,7 @@ const AdminSetup = () => {
             <Sparkles className="w-3.5 h-3.5" />
             <span>Admin Setup</span>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900">Create Admin Account</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Create/Update Admin</h2>
           <p className="text-sm text-gray-500 mt-1">Temporary setup</p>
         </div>
         
@@ -120,7 +120,7 @@ const AdminSetup = () => {
             disabled={loading || success}
             className="w-full flex items-center justify-center gap-2 bg-gradient-gold text-white py-3 rounded-xl hover:shadow-gold font-semibold transition-all duration-200 disabled:opacity-60"
           >
-            {loading ? 'Creating...' : 'Create Admin'}
+            {loading ? 'Saving...' : 'Save Admin'}
             {!loading && !success && <ArrowRight className="w-4 h-4" />}
           </button>
         </form>
