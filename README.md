@@ -25,12 +25,14 @@ A complete, production-ready AI chatbot for Indian Wedding Planners (https://www
 ## Quick Start (Local Development)
 
 ### Prerequisites
+
 - Python 3.11+
 - Node.js 18+
 - PostgreSQL (or use SQLite)
 - Ollama (optional, for AI responses)
 
 ### Backend Setup
+
 ```bash
 cd backend
 python -m venv venv
@@ -43,6 +45,7 @@ python manage.py runserver
 ```
 
 ### Frontend (Admin Dashboard) Setup
+
 ```bash
 cd frontend
 npm install
@@ -50,6 +53,7 @@ npm run dev
 ```
 
 ### Widget Setup
+
 ```bash
 cd widget
 npm install
@@ -57,6 +61,7 @@ npm run dev
 ```
 
 ### Using Docker Compose
+
 ```bash
 docker-compose up -d
 cd backend && python manage.py migrate
@@ -64,14 +69,18 @@ cd backend && python manage.py createsuperuser
 ```
 
 ## Admin Dashboard
+
 Access at http://localhost:5173
+
 - Chat Logs: View all conversations with transcripts
 - Leads: Manage leads, update status, add notes
 - Knowledge Base: Manage FAQs and business information
 - Settings: Configure chatbot and lead scoring
 
 ## Embedding the Widget
+
 Add to your website:
+
 ```html
 <script src="path/to/iwp-chatbot.iife.js"></script>
 <script>
@@ -81,6 +90,7 @@ Add to your website:
 ```
 
 ## AI Setup with Ollama
+
 ```bash
 # Install Ollama from https://ollama.ai
 ollama pull llama3.2
@@ -90,6 +100,7 @@ ollama pull llama3.2
 If Ollama is not available, the system uses intelligent fallback responses.
 
 ## Project Structure
+
 ```
 iwp-chatbot/
 ├── backend/          # Django backend
@@ -101,4 +112,5 @@ iwp-chatbot/
 ```
 
 ## License
+
 MIT

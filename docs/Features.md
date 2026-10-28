@@ -1,8 +1,11 @@
+..
+
 # Features
 
 ## Core Features
 
 ### 1. Embeddable Chatbot Widget
+
 - **Script Tag Integration**: Easy embedding on any website
 - **Responsive Design**: Works on desktop and mobile devices
 - **Customizable Positioning**: Bottom-right or bottom-left placement
@@ -11,6 +14,7 @@
 - **Real-time Messaging**: Instant message delivery
 
 ### 2. AI-Powered Conversations
+
 - **Multi-Provider Support**: Google Gemini, Ollama (local), and intelligent fallback
 - **Context-Aware Responses**: Uses lead data and conversation history
 - **Knowledge Base Integration**: Grounds responses in verified business information
@@ -19,6 +23,7 @@
 - **Concise Responses**: Optimized for quick, helpful answers
 
 ### 3. Intelligent Lead Capture
+
 - **Conversational Collection**: Gathers information naturally through dialogue
 - **Progressive Profiling**: Collects data step by step
 - **Data Validation**: Validates phone numbers, names, and inputs
@@ -26,6 +31,7 @@
 - **Duplicate Prevention**: One lead per session
 
 ### 4. Smart Journey Flow
+
 - **State Machine**: Manages conversation progression
 - **Question Sequencing**: Asks relevant questions in logical order
 - **Skip Logic**: Doesn't re-ask already answered questions
@@ -46,6 +52,7 @@ flowchart TD
 ```
 
 ### 5. Lead Scoring & Qualification
+
 - **Automatic Scoring**: 0-100 point scale, hard-capped at 100
 - **Default Weighted Factors** (total = 100):
   - Full Name: 5 points (fixed)
@@ -65,13 +72,14 @@ flowchart TD
 - **Score Tracking**: Audit trail of scoring events with awarded points and explanations
 
 ### 6. Admin Dashboard
+
 - **Dashboard Overview**: Key metrics at a glance
   - Total conversations
   - Total leads
   - Hot/Warm/Cold lead distribution
   - Active chats
 - **Chat Logs**: View all conversations with transcripts
-- **Lead Management**: 
+- **Lead Management**:
   - View all leads with filters
   - Update lead status
   - Add notes and follow-ups
@@ -81,6 +89,7 @@ flowchart TD
 - **User Authentication**: Secure admin access
 
 ### 7. Conversation Management
+
 - **Session Tracking**: Monitor active, completed, abandoned sessions
 - **Message History**: Complete conversation transcripts
 - **Inactivity Detection**: Auto-end sessions after 10 minutes of inactivity
@@ -88,6 +97,7 @@ flowchart TD
 - **Source Tracking**: Track referrer URLs and campaign data
 
 ### 8. Knowledge Base System
+
 - **FAQ Management**: Add/edit business information
 - **Category Organization**: Organize by topic
 - **Active/Inactive Toggle**: Control what's used by AI
@@ -96,6 +106,7 @@ flowchart TD
 ## Advanced Features
 
 ### 9. Smart Response Handling
+
 - **Intent Detection**: Understands user queries (pricing, services, locations)
 - **Location Intelligence**: Recognizes Indian cities and wedding destinations
 - **Service Recognition**: Identifies wedding service requirements
@@ -103,6 +114,7 @@ flowchart TD
 - **Guest Count Extraction**: Parses numeric guest counts
 
 ### 10. Lead Lifecycle Management
+
 ```mermaid
 stateDiagram-v2
     [*] --> New
@@ -117,6 +129,7 @@ stateDiagram-v2
 ```
 
 ### 11. Security Features
+
 - **CSRF Protection**: Django CSRF middleware
 - **CORS Configuration**: Controlled cross-origin access
 - **Authentication**: Token/session-based auth for admin
@@ -125,6 +138,7 @@ stateDiagram-v2
 - **Secure Headers**: Security middleware enabled
 
 ### 12. Analytics & Reporting
+
 - **Lead Metrics**: Conversion tracking by qualification
 - **Conversation Analytics**: Message counts, session duration
 - **Source Attribution**: Track where leads come from
@@ -132,18 +146,18 @@ stateDiagram-v2
 
 ## Feature Matrix
 
-| Feature | Widget | Admin | Status |
-|---------|--------|-------|--------|
-| Real-time Chat | ✓ | ✓ | Active |
-| Lead Capture | ✓ | ✓ | Active |
-| AI Responses | ✓ | - | Active |
-| Journey Flow | ✓ | - | Active |
-| Lead Scoring | ✓ | ✓ | Active |
-| Chat History | ✓ | ✓ | Active |
-| Knowledge Base | - | ✓ | Active |
-| User Management | - | ✓ | Active |
-| Analytics | - | ✓ | Active |
-| Settings | - | ✓ | Active |
+| Feature         | Widget | Admin | Status |
+| --------------- | ------ | ----- | ------ |
+| Real-time Chat  | ✓     | ✓    | Active |
+| Lead Capture    | ✓     | ✓    | Active |
+| AI Responses    | ✓     | -     | Active |
+| Journey Flow    | ✓     | -     | Active |
+| Lead Scoring    | ✓     | ✓    | Active |
+| Chat History    | ✓     | ✓    | Active |
+| Knowledge Base  | -      | ✓    | Active |
+| User Management | -      | ✓    | Active |
+| Analytics       | -      | ✓    | Active |
+| Settings        | -      | ✓    | Active |
 
 ## User Experience Features
 
