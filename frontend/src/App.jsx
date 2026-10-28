@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
+import AdminSetup from './pages/AdminSetup'
 import Dashboard from './admin/Dashboard'
 import ChatLogs from './admin/ChatLogs'
 import ChatLogDetail from './admin/ChatLogDetail'
@@ -43,6 +44,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/setup-admin" element={<AdminSetup />} />
         <Route path="/" element={<PrivateRoute><Layout><Dashboard /></Layout></PrivateRoute>} />
         <Route path="/chat-logs" element={<PrivateRoute><Layout><ChatLogs /></Layout></PrivateRoute>} />
         <Route path="/chat-logs/:sessionId" element={<PrivateRoute><Layout><ChatLogDetail /></Layout></PrivateRoute>} />

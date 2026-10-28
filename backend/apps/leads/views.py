@@ -5,15 +5,55 @@ from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.pagination import PageNumberPagination
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.db.models import Q, Count
 from django.utils import timezone
 from datetime import timedelta
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-import csv
-
+from django.conf import settings
 from .models import Lead, ConversationSummary, AdminNote, LeadScoreEvent
 from apps.chat.models import ChatSession, ChatMessage
+
+
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes([AllowAny])
+@authentication_classes([])
+def create_admin_setup(request):
+    setup_token = getattr(settings, 'ADMIN_SETUP_TOKEN', None) or request.META.get('HTTP_X_SETUP_TOKEN') or request.data.get('setup_token')
+    expected_token = getattr(settings, 'ADMIN_SETUP_TOKEN', None)
+    
+    if not expected_token:
+        return Response({'error': 'Admin setup not configured'}, status=status.HTTP_403_FORBIDDEN)
+    
+    if setup_token != expected_token:
+        return Response({'error': 'Invalid setup token'}, status=status.HTTP_403_FORBIDDEN)
+    
+    # Only allow creating admin if no superuser exists
+    if User.objects.filter(is_superuser=True).exists():
+        return Response({'error': 'Admin account already exists'}, status=status.HTTP_403_FORBIDDEN)
+    
+    username = request.data.get('username', '').strip()
+    email = request.data.get('email', '').strip()
+    password = request.data.get('password', '')
+    
+    if not username or not password:
+        return Response({'error': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if User.objects.filter(username=username).exists():
+        return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if email and User.objects.filter(email=email).exists():
+        return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        user = User.objects.create_superuser(username=username, email=email, password=password)
+        user.is_staff = True
+        user.save()
+        return Response({'message': 'Admin account created successfully'}, status=status.HTTP_201_CREATED)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt

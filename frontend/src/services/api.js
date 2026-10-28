@@ -49,6 +49,7 @@ export const authAPI = {
   login: (username, password) => api.post('/admin/auth/login/', { username, password }),
   logout: () => api.post('/admin/auth/logout/'),
   me: () => api.get('/admin/auth/me/'),
+  createAdmin: (data) => api.post('/admin/auth/create-admin/', data),
 }
 
 export const dashboardAPI = {

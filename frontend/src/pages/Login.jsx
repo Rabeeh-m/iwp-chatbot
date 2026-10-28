@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { authAPI } from '../services/api'
 import { Lock, User, ArrowRight, Sparkles } from 'lucide-react'
 
@@ -86,6 +86,12 @@ const Login = () => {
             {!loading && <ArrowRight className="w-4 h-4" />}
           </button>
         </form>
+        
+        <div className="text-center mt-4">
+          <Link to="/setup-admin" className="text-xs text-amber-600 hover:text-amber-700">
+            Setup Admin Account
+          </Link>
+        </div>
         
         <p className="text-center text-xs text-gray-400 mt-6">Indian Wedding Planners &copy; {new Date().getFullYear()}</p>
       </div>

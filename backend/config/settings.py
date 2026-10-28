@@ -9,6 +9,9 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 
+# One-time admin setup token
+ADMIN_SETUP_TOKEN = config('ADMIN_SETUP_TOKEN', default=None)
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
