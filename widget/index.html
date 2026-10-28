@@ -3,14 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IWP Chatbot Widget Test</title>
+  <title>IWP Chatbot Widget</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; line-height: 1.6; }
+    code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
+    pre { background: #f4f4f4; padding: 16px; border-radius: 8px; overflow-x: auto; }
+  </style>
 </head>
 <body>
-  <h1>Test Page</h1>
-  <script type="module">
-    import IWPChatbotWidget from './src/widget.jsx'
-    const widget = new IWPChatbotWidget({ apiUrl: 'http://localhost:8000/api/v1' })
-    widget.init()
-  </script>
+  <h1>IWP Chatbot Widget</h1>
+  <p>This is the embeddable chatbot widget for Indian Wedding Planners.</p>
+  
+  <h2>Usage</h2>
+  <p>Add this script to your website:</p>
+  <pre>&lt;script src="https://iwp-chatbot-widget.vercel.app/iwp-chatbot.iife.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const widget = new IWPChatbot({
+    apiUrl: 'https://your-backend-url.onrender.com/api/v1'
+  });
+  widget.init();
+&lt;/script&gt;</pre>
+  
+  <p><strong>Direct bundle:</strong> <a href="/iwp-chatbot.iife.js">iwp-chatbot.iife.js</a></p>
 </body>
 </html>
