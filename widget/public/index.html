@@ -2,18 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Test Local</title>
+  <title>Test</title>
 </head>
 <body>
-  <h1>Test</h1>
+  <h1>Chatbot Test</h1>
   <script src="./iwp-chatbot.iife.js"></script>
   <script>
-    window.addEventListener('load', function() {
-      if (window.IWPChatbot) {
-        var w = new window.IWPChatbot({apiUrl:'http://localhost:8000/api/v1', position:'bottom-right'});
-        w.init();
+    (function(){
+      function init(){
+        if(window.IWPChatbot){
+          var w = new window.IWPChatbot({apiUrl:'http://localhost:8000/api/v1', position:'bottom-right'});
+          w.init();
+        }else{
+          setTimeout(init, 100);
+        }
       }
-    });
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', init);
+      }else{
+        init();
+      }
+    })();
   </script>
 </body>
 </html>
