@@ -16,7 +16,7 @@ if (typeof document !== 'undefined') {
 class IWPChatbotWidget {
   constructor(options = {}) {
     this.options = {
-      apiUrl: options.apiUrl || 'https://iwp-chatbot-backend.onrender.com/api/v1',
+      apiUrl: options.apiUrl || import.meta.env.VITE_API_URL || 'https://iwp-chatbot.onrender.com/api/v1',
       position: options.position || 'bottom-right',
       ...options
     }

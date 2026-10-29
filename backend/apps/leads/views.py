@@ -11,6 +11,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.middleware.csrf import get_token
 from django.conf import settings
 from .models import Lead, ConversationSummary, AdminNote, LeadScoreEvent
 from apps.chat.models import ChatSession, ChatMessage
@@ -58,6 +59,7 @@ def admin_login(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
+        get_token(request)
         return Response({'message': 'Login successful', 'username': user.username})
     return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 

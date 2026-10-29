@@ -5,10 +5,10 @@ const isLocal =
   ['localhost', '127.0.0.1', ''].includes(window.location.hostname)
 
 const apiUrl =
-  import.meta.env.VITE_WIDGET_API_URL ||
+  import.meta.env.VITE_API_URL ||
   (isLocal
     ? 'http://localhost:8000/api/v1'
-    : 'https://iwp-chatbot-backend.onrender.com/api/v1')
+    : 'https://iwp-chatbot.onrender.com/api/v1')
 
 const widget = new IWPChatbot({
   apiUrl,
