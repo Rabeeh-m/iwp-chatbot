@@ -122,7 +122,7 @@ const ChatWidget = ({ apiUrl, position = 'bottom-right' }) => {
                     {parts.map((part, i) => {
                       if (urlRegex.test(part)) {
                         return (
-                          <a key={i} href={part} target="_blank" rel="noopener noreferrer" className={`${msg.role === 'user' ? 'text-white underline' : 'text-blue-600 underline'} break-all`}>
+                          <a key={i} href={part} target="_blank" rel="noopener noreferrer" className={`${msg.role === 'user' ? 'text-forest-900 underline' : 'text-sage-700 underline'} break-all`}>
                             {part}
                           </a>
                         );

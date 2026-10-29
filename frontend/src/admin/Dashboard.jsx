@@ -3,9 +3,9 @@ import { dashboardAPI } from '../services/api'
 import { MessageSquare, Users, Flame, ThermometerSun, Snowflake, Calendar, Sparkles, TrendingUp } from 'lucide-react'
 
 const qualificationStyles = {
-  hot: 'bg-gradient-to-r from-rose-100 to-orange-100 text-rose-700 border-rose-200',
-  warm: 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-700 border-amber-200',
-  cold: 'bg-gradient-to-r from-sky-100 to-slate-100 text-sky-700 border-sky-200',
+  hot: 'bg-gradient-to-r from-champagne-100 to-champagne-200 text-champagne-800 border-champagne-300',
+  warm: 'bg-gradient-to-r from-sage-100 to-sage-200 text-sage-700 border-sage-200',
+  cold: 'bg-gradient-to-r from-forest-50 to-forest-100 text-forest-600 border-forest-200',
 }
 
 const Dashboard = () => {
@@ -40,33 +40,33 @@ const Dashboard = () => {
   if (!stats) return <div className="p-6 text-gray-600">Error loading dashboard</div>
   
   const cards = [
-    { title: 'Total Conversations', value: stats.total_conversations, icon: MessageSquare, gradient: 'from-amber-400 to-yellow-500', ring: 'ring-amber-100' },
-    { title: 'Total Leads', value: stats.total_leads, icon: Users, gradient: 'from-emerald-400 to-teal-500', ring: 'ring-emerald-100' },
-    { title: 'Hot Leads', value: stats.hot_leads, icon: Flame, gradient: 'from-rose-500 to-orange-500', ring: 'ring-rose-100' },
-    { title: 'Warm Leads', value: stats.warm_leads, icon: ThermometerSun, gradient: 'from-orange-400 to-amber-500', ring: 'ring-orange-100' },
-    { title: 'Cold Leads', value: stats.cold_leads, icon: Snowflake, gradient: 'from-sky-400 to-slate-500', ring: 'ring-sky-100' },
-    { title: 'New Leads Today', value: stats.new_leads_today, icon: Calendar, gradient: 'from-violet-400 to-purple-500', ring: 'ring-violet-100' },
+    { title: 'Total Conversations', value: stats.total_conversations, icon: MessageSquare, gradient: 'from-forest-500 to-forest-700', ring: 'ring-forest-100' },
+    { title: 'Total Leads', value: stats.total_leads, icon: Users, gradient: 'from-sage-400 to-sage-600', ring: 'ring-sage-100' },
+    { title: 'Hot Leads', value: stats.hot_leads, icon: Flame, gradient: 'from-champagne-500 to-champagne-700', ring: 'ring-champagne-100' },
+    { title: 'Warm Leads', value: stats.warm_leads, icon: ThermometerSun, gradient: 'from-sage-300 to-sage-500', ring: 'ring-sage-100' },
+    { title: 'Cold Leads', value: stats.cold_leads, icon: Snowflake, gradient: 'from-forest-400 to-forest-600', ring: 'ring-forest-100' },
+    { title: 'New Leads Today', value: stats.new_leads_today, icon: Calendar, gradient: 'from-champagne-400 to-champagne-600', ring: 'ring-champagne-100' },
   ]
   
   return (
     <div className="space-y-8">
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500 via-yellow-500 to-amber-600 p-8 shadow-gold-lg">
-        <div className="absolute -right-8 -top-8 w-48 h-48 bg-white/10 rounded-full blur-2xl" />
-        <div className="absolute right-16 bottom-0 w-24 h-24 bg-white/10 rounded-full blur-xl" />
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-forest-900 via-forest-800 to-forest-700 p-8 shadow-gold-lg">
+        <div className="absolute -right-8 -top-8 w-48 h-48 bg-champagne-300/20 rounded-full blur-2xl" />
+        <div className="absolute right-16 bottom-0 w-24 h-24 bg-sage-300/20 rounded-full blur-xl" />
         <div className="relative flex items-center justify-between">
           <div>
-            <div className="flex items-center gap-2 text-white/90 text-sm font-medium mb-2">
+            <div className="flex items-center gap-2 text-champagne-200 text-sm font-medium mb-2">
               <Sparkles className="w-4 h-4" />
               <span>Welcome back</span>
             </div>
-            <h2 className="text-3xl font-bold text-white">Dashboard Overview</h2>
-            <p className="text-amber-50/90 mt-2 text-sm">Track your wedding planning leads and conversations at a glance.</p>
+            <h2 className="text-3xl font-bold text-light">Dashboard Overview</h2>
+            <p className="text-sage-100 mt-2 text-sm">Track your wedding planning leads and conversations at a glance.</p>
           </div>
-          <div className="hidden md:flex items-center gap-3 bg-white/20 backdrop-blur-sm rounded-xl px-5 py-3 border border-white/30">
-            <TrendingUp className="w-5 h-5 text-white" />
+          <div className="hidden md:flex items-center gap-3 bg-forest-700/60 backdrop-blur-sm rounded-xl px-5 py-3 border border-champagne-300/30">
+            <TrendingUp className="w-5 h-5 text-champagne-200" />
             <div>
-              <p className="text-xs text-white/80">New today</p>
-              <p className="text-xl font-bold text-white">{stats.new_leads_today}</p>
+              <p className="text-xs text-sage-200">New today</p>
+              <p className="text-xl font-bold text-light">{stats.new_leads_today}</p>
             </div>
           </div>
         </div>

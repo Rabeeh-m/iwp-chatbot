@@ -4,9 +4,9 @@ import { leadsAPI } from '../services/api'
 import { ArrowLeft, User, Phone, Mail, MapPin, Calendar, Users, Wallet, StickyNote, MessageSquare } from 'lucide-react'
 
 const qualificationStyles = {
-  hot: 'bg-gradient-to-r from-rose-100 to-orange-100 text-rose-700 border-rose-200',
-  warm: 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-700 border-amber-200',
-  cold: 'bg-gradient-to-r from-sky-100 to-slate-100 text-sky-700 border-sky-200',
+  hot: 'bg-gradient-to-r from-champagne-100 to-champagne-200 text-champagne-800 border-champagne-300',
+  warm: 'bg-gradient-to-r from-sage-100 to-sage-200 text-sage-700 border-sage-200',
+  cold: 'bg-gradient-to-r from-forest-50 to-forest-100 text-forest-600 border-forest-200',
 }
 
 const InfoRow = ({ icon: Icon, label, value }) => (
@@ -144,7 +144,7 @@ const LeadDetail = () => {
                 />
                 <button
                   onClick={addNote}
-                  className="px-5 py-2.5 bg-gradient-gold text-white rounded-xl hover:shadow-gold font-semibold text-sm transition-all"
+                  className="px-5 py-2.5 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold text-sm transition-all"
                 >
                   Add Note
                 </button>

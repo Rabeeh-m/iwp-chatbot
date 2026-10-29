@@ -101,7 +101,7 @@ const Settings = () => {
         <div className="p-6">
           <div className="mb-5 flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-sm">
             <span className="text-gray-600">Full Name is fixed at <span className="font-semibold">5</span> points. Weights are capped at 100 total.</span>
-            <span className={`font-bold whitespace-nowrap ${scoringTotal > 100 ? 'text-rose-600' : 'text-emerald-600'}`}>
+            <span className={`font-bold whitespace-nowrap ${scoringTotal > 100 ? 'text-rose-600' : 'text-sage-700'}`}>
               {scoringTotal} / 100
             </span>
           </div>
@@ -154,7 +154,7 @@ const Settings = () => {
         <button
           onClick={saveSettings}
           disabled={saving}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-gold text-white rounded-xl hover:shadow-gold font-semibold transition-all disabled:opacity-60"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold transition-all disabled:opacity-60"
         >
           <Save className="w-4 h-4" /> {saving ? 'Saving...' : 'Save Settings'}
         </button>

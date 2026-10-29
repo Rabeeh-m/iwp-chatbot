@@ -44,7 +44,7 @@ const Knowledge = () => {
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-gold text-white rounded-xl hover:shadow-gold font-semibold transition-all"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold transition-all"
         >
           <Plus className="w-4 h-4" /> Add Entry
         </button>
@@ -98,7 +98,7 @@ const Knowledge = () => {
               />
             </div>
             <div className="flex gap-3">
-              <button type="submit" className="px-5 py-2.5 bg-gradient-gold text-white rounded-xl hover:shadow-gold font-semibold text-sm transition-all">Save Entry</button>
+              <button type="submit" className="px-5 py-2.5 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold text-sm transition-all">Save Entry</button>
               <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 font-semibold text-sm transition-all">Cancel</button>
             </div>
           </form>
@@ -131,7 +131,7 @@ const Knowledge = () => {
                     </td>
                     <td className="px-6 py-4">
                       <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
-                        entry.is_active ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-gray-100 text-gray-600 border border-gray-200'
+                        entry.is_active ? 'bg-sage-50 text-sage-700 border border-sage-200' : 'bg-cream-100 text-forest-500 border border-forest-200'
                       }`}>
                         {entry.is_active ? 'Active' : 'Inactive'}
                       </span>
@@ -139,7 +139,7 @@ const Knowledge = () => {
                     <td className="px-6 py-4 text-sm text-gray-500">{new Date(entry.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors"><Edit className="w-4 h-4" /></button>
+                        <button className="p-2 rounded-lg text-sage-600 hover:bg-sage-50 transition-colors"><Edit className="w-4 h-4" /></button>
                         <button className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-colors"><Trash2 className="w-4 h-4" /></button>
                       </div>
                     </td>

@@ -4,16 +4,16 @@ import { chatLogsAPI } from '../services/api'
 import { Search } from 'lucide-react'
 
 const qualificationStyles = {
-  hot: 'bg-gradient-to-r from-rose-100 to-orange-100 text-rose-700 border-rose-200',
-  warm: 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-700 border-amber-200',
-  cold: 'bg-gradient-to-r from-sky-100 to-slate-100 text-sky-700 border-sky-200',
+  hot: 'bg-gradient-to-r from-champagne-100 to-champagne-200 text-champagne-800 border-champagne-300',
+  warm: 'bg-gradient-to-r from-sage-100 to-sage-200 text-sage-700 border-sage-200',
+  cold: 'bg-gradient-to-r from-forest-50 to-forest-100 text-forest-600 border-forest-200',
 }
 
 const statusStyles = {
-  active: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  ended: 'bg-gray-50 text-gray-600 border-gray-200',
-  completed: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  abandoned: 'bg-rose-50 text-rose-700 border-rose-200',
+  active: 'bg-sage-50 text-sage-700 border-sage-200',
+  ended: 'bg-cream-100 text-forest-500 border-forest-200',
+  completed: 'bg-sage-50 text-sage-700 border-sage-200',
+  abandoned: 'bg-champagne-50 text-champagne-800 border-champagne-200',
 }
 
 const ChatLogs = () => {

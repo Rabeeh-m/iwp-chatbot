@@ -4,17 +4,17 @@ import { leadsAPI } from '../services/api'
 import { Search, Flame, ThermometerSun, Snowflake, Users, ChevronRight } from 'lucide-react'
 
 const qualificationStyles = {
-  hot: 'bg-gradient-to-r from-rose-100 to-orange-100 text-rose-700 border-rose-200',
-  warm: 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-700 border-amber-200',
-  cold: 'bg-gradient-to-r from-sky-100 to-slate-100 text-sky-700 border-sky-200',
+  hot: 'bg-gradient-to-r from-champagne-100 to-champagne-200 text-champagne-800 border-champagne-300',
+  warm: 'bg-gradient-to-r from-sage-100 to-sage-200 text-sage-700 border-sage-200',
+  cold: 'bg-gradient-to-r from-forest-50 to-forest-100 text-forest-600 border-forest-200',
 }
 
 const statusStyles = {
-  new: 'bg-blue-50 text-blue-700 border-blue-200',
-  contacted: 'bg-violet-50 text-violet-700 border-violet-200',
-  qualified: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  converted: 'bg-green-50 text-green-700 border-green-200',
-  lost: 'bg-gray-50 text-gray-600 border-gray-200',
+  new: 'bg-forest-50 text-forest-700 border-forest-200',
+  contacted: 'bg-sage-50 text-sage-700 border-sage-200',
+  qualified: 'bg-sage-100 text-sage-800 border-sage-300',
+  converted: 'bg-champagne-50 text-champagne-800 border-champagne-200',
+  lost: 'bg-cream-100 text-forest-500 border-forest-200',
 }
 
 const Leads = () => {
@@ -58,10 +58,10 @@ const Leads = () => {
   }
 
   const statChips = [
-    { key: '', label: 'All Leads', value: counts.all, icon: Users, style: 'from-amber-400 to-yellow-500' },
-    { key: 'hot', label: 'Hot', value: counts.hot, icon: Flame, style: 'from-rose-500 to-orange-500' },
-    { key: 'warm', label: 'Warm', value: counts.warm, icon: ThermometerSun, style: 'from-orange-400 to-amber-500' },
-    { key: 'cold', label: 'Cold', value: counts.cold, icon: Snowflake, style: 'from-sky-400 to-slate-500' },
+    { key: '', label: 'All Leads', value: counts.all, icon: Users, style: 'from-forest-500 to-forest-700' },
+    { key: 'hot', label: 'Hot', value: counts.hot, icon: Flame, style: 'from-champagne-500 to-champagne-700' },
+    { key: 'warm', label: 'Warm', value: counts.warm, icon: ThermometerSun, style: 'from-sage-300 to-sage-500' },
+    { key: 'cold', label: 'Cold', value: counts.cold, icon: Snowflake, style: 'from-forest-400 to-forest-600' },
   ]
   
   return (
@@ -138,7 +138,7 @@ const Leads = () => {
                         <span className="text-sm font-bold text-gray-900 w-6">{lead.lead_score}</span>
                         <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full rounded-full bg-gradient-to-r from-amber-400 to-orange-500"
+                            className="h-full rounded-full bg-gradient-to-r from-champagne-400 to-champagne-600"
                             style={{ width: `${Math.min(lead.lead_score || 0, 100)}%` }}
                           />
                         </div>
