@@ -16,6 +16,16 @@ const statusStyles = {
   abandoned: 'bg-champagne-50 text-champagne-800 border-champagne-200',
 }
 
+const formatDateTime = (value) =>
+  new Date(value).toLocaleString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+
 const ChatLogs = () => {
   const navigate = useNavigate()
   const [logs, setLogs] = useState([])
@@ -42,27 +52,27 @@ const ChatLogs = () => {
   }
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900">Chat Logs</h2>
-        <p className="text-sm text-gray-500 mt-1">Review every conversation captured by your chatbot</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Chat Logs</h2>
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">Review every conversation captured by your chatbot</p>
       </div>
       
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex flex-col sm:flex-row gap-3">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-3 sm:p-4 flex flex-col sm:flex-row gap-3">
         <div className="flex-1 flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 focus-within:ring-2 focus-within:ring-amber-400 transition-all">
-          <Search className="w-4 h-4 text-gray-400" />
+          <Search className="w-4 h-4 text-gray-400 flex-shrink-0" />
           <input
             type="text"
             placeholder="Search by name, phone, or session ID..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-transparent py-2.5 text-sm outline-none"
+            className="flex-1 min-w-0 bg-transparent py-2.5 text-sm outline-none"
           />
         </div>
         <select
           value={qualification}
           onChange={(e) => setQualification(e.target.value)}
-          className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+          className="w-full sm:w-auto bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
         >
           <option value="">All Qualifications</option>
           <option value="hot">Hot</option>
@@ -72,7 +82,46 @@ const ChatLogs = () => {
       </div>
       
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="lg:hidden divide-y divide-gray-100">
+          {loading ? (
+            <p className="px-4 py-12 text-center text-sm text-gray-400">Loading chat logs...</p>
+          ) : logs.length === 0 ? (
+            <p className="px-4 py-12 text-center text-sm text-gray-400">No chat logs found</p>
+          ) : (
+            logs.map((log) => (
+              <button
+                key={log.session_id}
+                onClick={() => navigate(`/chat-logs/${log.session_id}`)}
+                className="w-full text-left p-4 active:bg-amber-50/60 transition-colors"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-gray-900 truncate">{log.visitor_name || 'Anonymous'}</p>
+                    <p className="text-xs font-mono text-gray-400 truncate mt-0.5">{log.session_id.substring(0, 8)}...</p>
+                  </div>
+                  <span className="text-lg font-bold text-gray-900 flex-shrink-0">{log.lead_score}</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 mt-2">
+                  <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full border capitalize ${qualificationStyles[(log.qualification_level || '').toLowerCase()] || qualificationStyles.cold}`}>
+                    {log.qualification_level || 'cold'}
+                  </span>
+                  <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full border capitalize ${statusStyles[(log.conversation_status || '').toLowerCase()] || statusStyles.ended}`}>
+                    {log.conversation_status || 'ended'}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 truncate mt-2">
+                  {[log.mobile_number, log.wedding_location].filter(Boolean).join(' · ') || 'No contact details'}
+                </p>
+                <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-400">
+                  <span>{log.message_count} messages</span>
+                  <span>{formatDateTime(log.last_activity)}</span>
+                </div>
+              </button>
+            ))
+          )}
+        </div>
+
+        <div className="hidden lg:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50/80">
@@ -115,7 +164,7 @@ const ChatLogs = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-700">{log.message_count}</td>
-                    <td className="px-6 py-4 text-sm text-gray-500">{new Date(log.last_activity).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                    <td className="px-6 py-4 text-sm text-gray-500">{formatDateTime(log.last_activity)}</td>
                   </tr>
                 ))
               )}

@@ -28,11 +28,11 @@ const Login = () => {
   }
   
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cream via-cream-50 to-sage-50 relative overflow-hidden">
+    <div className="min-h-[100dvh] flex items-center justify-center bg-gradient-to-br from-cream via-cream-50 to-sage-50 relative overflow-hidden px-4 py-8">
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-champagne-200/40 rounded-full blur-3xl" />
       <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-sage-200/40 rounded-full blur-3xl" />
       
-      <div className="relative bg-cream-50/95 backdrop-blur-sm p-10 rounded-3xl shadow-gold-lg w-full max-w-md border border-champagne-200/70">
+      <div className="relative bg-cream-50/95 backdrop-blur-sm p-6 sm:p-10 rounded-3xl shadow-gold-lg w-full max-w-md border border-champagne-200/70">
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-2xl bg-gradient-gold flex items-center justify-center mx-auto mb-4 shadow-gold">
             <span className="text-forest-900 font-bold text-2xl">IWP</span>
@@ -41,7 +41,7 @@ const Login = () => {
             <Sparkles className="w-3.5 h-3.5" />
             <span>Admin Portal</span>
           </div>
-          <h2 className="text-2xl font-bold text-forest-900">Welcome Back</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-forest-900">Welcome Back</h2>
           <p className="text-sm text-forest-500 mt-1">Sign in to Indian Wedding Planners</p>
         </div>
         
@@ -62,6 +62,7 @@ const Login = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full pl-10 pr-3 py-3 border border-forest-200 bg-cream-50/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-champagne-400 focus:border-transparent transition-all"
                 placeholder="Enter your username"
+                autoComplete="username"
                 required
               />
             </div>
@@ -76,6 +77,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 pr-3 py-3 border border-forest-200 bg-cream-50/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-champagne-400 focus:border-transparent transition-all"
                 placeholder="Enter your password"
+                autoComplete="current-password"
                 required
               />
             </div>

@@ -65,11 +65,11 @@ const Leads = () => {
   ]
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Lead Management</h2>
-          <p className="text-sm text-gray-500 mt-1">Track, qualify and manage all captured wedding leads</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Lead Management</h2>
+          <p className="text-xs sm:text-sm text-gray-500 mt-1">Track, qualify and manage all captured wedding leads</p>
         </div>
         <div className="relative w-full md:w-72">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -83,7 +83,7 @@ const Leads = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {statChips.map((chip) => {
           const Icon = chip.icon
           const active = qualificationFilter === chip.key
@@ -91,16 +91,16 @@ const Leads = () => {
             <button
               key={chip.key}
               onClick={() => setQualificationFilter(chip.key)}
-              className={`group flex items-center gap-3 p-4 rounded-2xl border bg-white text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-gold ${
+              className={`group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 rounded-2xl border bg-white text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-gold ${
                 active ? 'border-amber-400 ring-2 ring-amber-200 shadow-sm' : 'border-gray-100'
               }`}
             >
-              <div className={`p-2.5 rounded-xl bg-gradient-to-br ${chip.style} shadow-sm group-hover:scale-105 transition-transform`}>
-                <Icon className="w-5 h-5 text-white" />
+              <div className={`p-2 sm:p-2.5 rounded-xl bg-gradient-to-br ${chip.style} shadow-sm group-hover:scale-105 transition-transform flex-shrink-0`}>
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <div>
-                <p className="text-2xl font-bold text-gray-900 leading-none">{chip.value}</p>
-                <p className="text-xs text-gray-500 mt-1">{chip.label}</p>
+              <div className="min-w-0">
+                <p className="text-xl sm:text-2xl font-bold text-gray-900 leading-none">{chip.value}</p>
+                <p className="text-xs text-gray-500 mt-1 truncate">{chip.label}</p>
               </div>
             </button>
           )
@@ -108,7 +108,51 @@ const Leads = () => {
       </div>
       
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="lg:hidden divide-y divide-gray-100">
+          {loading ? (
+            <p className="px-4 py-12 text-center text-sm text-gray-400">Loading leads...</p>
+          ) : filteredLeads.length === 0 ? (
+            <p className="px-4 py-12 text-center text-sm text-gray-400">No leads found</p>
+          ) : (
+            filteredLeads.map((lead) => (
+              <Link key={lead.id} to={`/leads/${lead.id}`} className="block p-4 active:bg-amber-50/60 transition-colors">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-gray-900 truncate">{lead.full_name || 'Anonymous'}</p>
+                    <p className="text-xs text-gray-500 truncate mt-0.5">
+                      {[lead.phone_number, lead.wedding_location].filter(Boolean).join(' · ') || 'No contact details'}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2 mt-2">
+                      <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full border capitalize ${qualificationStyles[(lead.qualification_level || '').toLowerCase()] || qualificationStyles.cold}`}>
+                        {lead.qualification_level || 'cold'}
+                      </span>
+                      <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full border capitalize ${statusStyles[(lead.lead_status || '').toLowerCase()] || statusStyles.new}`}>
+                        {(lead.lead_status || 'new').replace(/_/g, ' ')}
+                      </span>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-gray-300 flex-shrink-0" />
+                </div>
+                <div className="mt-3 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <span className="text-sm font-bold text-gray-900 w-6">{lead.lead_score}</span>
+                    <div className="w-full max-w-[120px] h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-gradient-to-r from-champagne-400 to-champagne-600"
+                        style={{ width: `${Math.min(lead.lead_score || 0, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                  <span className="text-xs text-gray-400 whitespace-nowrap">
+                    {new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </span>
+                </div>
+              </Link>
+            ))
+          )}
+        </div>
+
+        <div className="hidden lg:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50/80">

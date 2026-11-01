@@ -34,30 +34,45 @@ const Knowledge = () => {
       console.error('Error creating entry:', error)
     }
   }
+
+  const StatusBadge = ({ active }) => (
+    <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
+      active ? 'bg-sage-50 text-sage-700 border border-sage-200' : 'bg-cream-100 text-forest-500 border border-forest-200'
+    }`}>
+      {active ? 'Active' : 'Inactive'}
+    </span>
+  )
+
+  const EntryActions = () => (
+    <div className="flex items-center gap-1">
+      <button aria-label="Edit entry" className="p-2 rounded-lg text-sage-600 hover:bg-sage-50 transition-colors"><Edit className="w-4 h-4" /></button>
+      <button aria-label="Delete entry" className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-colors"><Trash2 className="w-4 h-4" /></button>
+    </div>
+  )
   
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-5 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Knowledge Base</h2>
-          <p className="text-sm text-gray-500 mt-1">Train your chatbot with verified business information</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Knowledge Base</h2>
+          <p className="text-xs sm:text-sm text-gray-500 mt-1">Train your chatbot with verified business information</p>
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold transition-all"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold transition-all w-full sm:w-auto"
         >
           <Plus className="w-4 h-4" /> Add Entry
         </button>
       </div>
       
       {showForm && (
-        <div className="bg-white rounded-2xl shadow-sm border border-amber-100 p-6">
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-amber-600" />
-              <h3 className="text-lg font-bold text-gray-900">Add Knowledge Entry</h3>
+        <div className="bg-white rounded-2xl shadow-sm border border-amber-100 p-4 sm:p-6">
+          <div className="flex items-center justify-between mb-5 gap-3">
+            <div className="flex items-center gap-2 min-w-0">
+              <BookOpen className="w-5 h-5 text-amber-600 flex-shrink-0" />
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 truncate">Add Knowledge Entry</h3>
             </div>
-            <button onClick={() => setShowForm(false)} className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+            <button onClick={() => setShowForm(false)} aria-label="Close form" className="p-2 -mr-1 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 flex-shrink-0">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -97,16 +112,40 @@ const Knowledge = () => {
                 required
               />
             </div>
-            <div className="flex gap-3">
-              <button type="submit" className="px-5 py-2.5 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold text-sm transition-all">Save Entry</button>
-              <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 font-semibold text-sm transition-all">Cancel</button>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button type="submit" className="px-5 py-2.5 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold text-sm transition-all w-full sm:w-auto">Save Entry</button>
+              <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 font-semibold text-sm transition-all w-full sm:w-auto">Cancel</button>
             </div>
           </form>
         </div>
       )}
       
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="md:hidden divide-y divide-gray-100">
+          {loading ? (
+            <p className="px-4 py-12 text-center text-sm text-gray-400">Loading entries...</p>
+          ) : entries.length === 0 ? (
+            <p className="px-4 py-12 text-center text-sm text-gray-400">No entries found</p>
+          ) : (
+            entries.map((entry) => (
+              <div key={entry.id} className="p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-gray-900 break-words">{entry.title}</p>
+                    <span className="inline-flex mt-1.5 px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-50 text-amber-700 border border-amber-200 capitalize">{entry.category}</span>
+                  </div>
+                  <StatusBadge active={entry.is_active} />
+                </div>
+                <div className="mt-3 flex items-center justify-between gap-3">
+                  <span className="text-xs text-gray-400">{new Date(entry.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                  <EntryActions />
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50/80">
@@ -130,17 +169,12 @@ const Knowledge = () => {
                       <span className="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-50 text-amber-700 border border-amber-200 capitalize">{entry.category}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${
-                        entry.is_active ? 'bg-sage-50 text-sage-700 border border-sage-200' : 'bg-cream-100 text-forest-500 border border-forest-200'
-                      }`}>
-                        {entry.is_active ? 'Active' : 'Inactive'}
-                      </span>
+                      <StatusBadge active={entry.is_active} />
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-500">{new Date(entry.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 rounded-lg text-sage-600 hover:bg-sage-50 transition-colors"><Edit className="w-4 h-4" /></button>
-                        <button className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                        <EntryActions />
                       </div>
                     </td>
                   </tr>

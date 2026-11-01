@@ -75,27 +75,27 @@ const LeadDetail = () => {
   if (!lead) return <div className="p-6 text-gray-600">Error loading lead</div>
   
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-4">
+    <div className="space-y-5 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
         <Link
           to="/leads"
-          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-amber-50 hover:border-amber-300 transition-all"
+          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-amber-50 hover:border-amber-300 transition-all self-start"
         >
           <ArrowLeft className="w-4 h-4" /> Back
         </Link>
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">Lead Details</h2>
-          <p className="text-sm text-gray-500">{lead.full_name || 'Anonymous lead'}</p>
+        <div className="min-w-0">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Lead Details</h2>
+          <p className="text-sm text-gray-500 truncate">{lead.full_name || 'Anonymous lead'}</p>
         </div>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="lg:col-span-2 space-y-4 sm:space-y-6 min-w-0">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100">
-              <h3 className="text-lg font-bold text-gray-900">Contact Information</h3>
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-100">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900">Contact Information</h3>
             </div>
-            <div className="px-6 py-3 grid grid-cols-1 sm:grid-cols-2 gap-x-8 divide-y sm:divide-y-0">
+            <div className="px-4 sm:px-6 py-3 grid grid-cols-1 sm:grid-cols-2 gap-x-8 divide-y sm:divide-y-0">
               <InfoRow icon={User} label="Full Name" value={lead.full_name} />
               <InfoRow icon={Phone} label="Phone" value={lead.phone_number} />
               <InfoRow icon={Mail} label="Email" value={lead.email} />
@@ -108,10 +108,10 @@ const LeadDetail = () => {
           </div>
           
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100">
-              <h3 className="text-lg font-bold text-gray-900">Requirements</h3>
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-100">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900">Requirements</h3>
             </div>
-            <div className="px-6 py-5 space-y-3 text-sm">
+            <div className="px-4 sm:px-6 py-5 space-y-3 text-sm">
               <div>
                 <p className="text-xs text-gray-400 font-medium mb-2">Services</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -128,11 +128,11 @@ const LeadDetail = () => {
           </div>
           
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-100 flex items-center gap-2">
               <StickyNote className="w-4 h-4 text-amber-600" />
-              <h3 className="text-lg font-bold text-gray-900">Internal Notes</h3>
+              <h3 className="text-base sm:text-lg font-bold text-gray-900">Internal Notes</h3>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <div className="flex flex-col sm:flex-row gap-2 mb-5">
                 <input
                   type="text"
@@ -144,7 +144,7 @@ const LeadDetail = () => {
                 />
                 <button
                   onClick={addNote}
-                  className="px-5 py-2.5 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold text-sm transition-all"
+                  className="px-5 py-2.5 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold text-sm transition-all w-full sm:w-auto"
                 >
                   Add Note
                 </button>
@@ -163,12 +163,12 @@ const LeadDetail = () => {
           </div>
         </div>
         
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6 min-w-0">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100">
-              <h3 className="text-lg font-bold text-gray-900">Lead Status</h3>
+            <div className="px-4 sm:px-5 py-4 border-b border-gray-100">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900">Lead Status</h3>
             </div>
-            <div className="p-5 space-y-4">
+            <div className="p-4 sm:p-5 space-y-4">
               <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-gray-50 to-amber-50 border border-gray-100">
                 <div>
                   <p className="text-xs text-gray-400 font-medium">Lead Score</p>

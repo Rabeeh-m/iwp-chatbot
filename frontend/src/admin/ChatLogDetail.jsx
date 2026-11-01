@@ -54,36 +54,36 @@ const ChatLogDetail = () => {
   if (!data) return <div className="p-6 text-gray-600">Error loading conversation</div>
   
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-4">
+    <div className="space-y-5 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
         <Link
           to="/chat-logs"
-          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-amber-50 hover:border-amber-300 transition-all"
+          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-amber-50 hover:border-amber-300 transition-all self-start"
         >
           <ArrowLeft className="w-4 h-4" /> Back
         </Link>
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">Conversation Details</h2>
-          <p className="text-xs text-gray-500 font-mono">Session: {sessionId}</p>
+        <div className="min-w-0">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Conversation Details</h2>
+          <p className="text-xs text-gray-500 font-mono break-all">Session: {sessionId}</p>
         </div>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="lg:col-span-2 min-w-0">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">Chat Transcript</h3>
-                <p className="text-sm text-gray-500">{data.messages?.length || 0} messages</p>
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-100 flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900">Chat Transcript</h3>
+                <p className="text-xs sm:text-sm text-gray-500">{data.messages?.length || 0} messages</p>
               </div>
-              <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+              <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 flex-shrink-0">
                 {sessionId.substring(0, 8)}...
               </span>
             </div>
-            <div className="p-6 max-h-[640px] overflow-y-auto space-y-4 bg-gradient-to-b from-gray-50/50 to-white">
+            <div className="p-3 sm:p-6 max-h-[60dvh] sm:max-h-[640px] overflow-y-auto space-y-4 bg-gradient-to-b from-gray-50/50 to-white">
               {data.messages?.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[75%] rounded-2xl px-4 py-3 shadow-sm ${
+                  <div className={`max-w-[85%] sm:max-w-[75%] rounded-2xl px-3 sm:px-4 py-3 shadow-sm ${
                     msg.role === 'user'
                       ? 'bg-gradient-to-br from-amber-400 to-yellow-500 text-gray-900 rounded-br-sm'
                       : 'bg-white border border-gray-200 text-gray-900 rounded-bl-sm'
@@ -106,13 +106,13 @@ const ChatLogDetail = () => {
           </div>
         </div>
         
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6 min-w-0">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-2">
+            <div className="px-4 sm:px-5 py-4 border-b border-gray-100 flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-amber-600" />
-              <h3 className="text-lg font-bold text-gray-900">Lead Information</h3>
+              <h3 className="text-base sm:text-lg font-bold text-gray-900">Lead Information</h3>
             </div>
-            <div className="px-5 py-3 divide-y divide-gray-50">
+            <div className="px-4 sm:px-5 py-3 divide-y divide-gray-50">
               <InfoRow icon={User} label="Full Name" value={data.lead?.full_name} />
               <InfoRow icon={Phone} label="Phone" value={data.lead?.phone_number} />
               <InfoRow icon={MapPin} label="Location" value={data.lead?.wedding_location} />
@@ -120,7 +120,7 @@ const ChatLogDetail = () => {
               <InfoRow icon={Users} label="Guest Count" value={data.lead?.guest_count} />
               <InfoRow icon={Wallet} label="Budget" value={data.lead?.budget_range_text} />
             </div>
-            <div className="px-5 pb-5 pt-2 space-y-3">
+            <div className="px-4 sm:px-5 pb-5 pt-2 space-y-3">
               <div>
                 <p className="text-xs text-gray-400 font-medium mb-1">Services</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -148,20 +148,20 @@ const ChatLogDetail = () => {
           </div>
           
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100">
-              <h3 className="text-lg font-bold text-gray-900">Conversation Summary</h3>
+            <div className="px-4 sm:px-5 py-4 border-b border-gray-100">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900">Conversation Summary</h3>
             </div>
-            <div className="p-5">
+            <div className="p-4 sm:p-5">
               <p className="text-sm text-gray-600 whitespace-pre-wrap leading-relaxed">{data.summary?.summary_text || 'No summary generated yet.'}</p>
             </div>
           </div>
           
           {data.score_events?.length > 0 && (
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900">Score Breakdown</h3>
+              <div className="px-4 sm:px-5 py-4 border-b border-gray-100">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900">Score Breakdown</h3>
               </div>
-              <div className="p-5 space-y-2.5">
+              <div className="p-4 sm:p-5 space-y-2.5">
                 {[...data.score_events]
                   .sort((a, b) => b.points - a.points)
                   .map((event, idx) => (

@@ -61,18 +61,18 @@ const Settings = () => {
   }
   
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-5 sm:space-y-6 max-w-4xl">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900">Chatbot Settings</h2>
-        <p className="text-sm text-gray-500 mt-1">Configure your assistant and lead scoring rules</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Chatbot Settings</h2>
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">Configure your assistant and lead scoring rules</p>
       </div>
       
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-100 flex items-center gap-2">
           <MessageSquare className="w-5 h-5 text-amber-600" />
-          <h3 className="text-lg font-bold text-gray-900">General Settings</h3>
+          <h3 className="text-base sm:text-lg font-bold text-gray-900">General Settings</h3>
         </div>
-        <div className="p-6 space-y-5">
+        <div className="p-4 sm:p-6 space-y-5">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">Chatbot Display Name</label>
             <input
@@ -94,12 +94,12 @@ const Settings = () => {
       </div>
       
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-100 flex items-center gap-2">
           <Sliders className="w-5 h-5 text-amber-600" />
-          <h3 className="text-lg font-bold text-gray-900">Lead Scoring Configuration</h3>
+          <h3 className="text-base sm:text-lg font-bold text-gray-900">Lead Scoring Configuration</h3>
         </div>
-        <div className="p-6">
-          <div className="mb-5 flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-sm">
+        <div className="p-4 sm:p-6">
+          <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-sm">
             <span className="text-gray-600">Full Name is fixed at <span className="font-semibold">5</span> points. Weights are capped at 100 total.</span>
             <span className={`font-bold whitespace-nowrap ${scoringTotal > 100 ? 'text-rose-600' : 'text-sage-700'}`}>
               {scoringTotal} / 100
@@ -154,7 +154,7 @@ const Settings = () => {
         <button
           onClick={saveSettings}
           disabled={saving}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold transition-all disabled:opacity-60"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-gold text-forest-900 rounded-xl hover:shadow-gold font-semibold transition-all disabled:opacity-60 w-full sm:w-auto"
         >
           <Save className="w-4 h-4" /> {saving ? 'Saving...' : 'Save Settings'}
         </button>

@@ -8,6 +8,16 @@ const qualificationStyles = {
   cold: 'bg-gradient-to-r from-forest-50 to-forest-100 text-forest-600 border-forest-200',
 }
 
+const formatDateTime = (value) =>
+  new Date(value).toLocaleString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+
 const Dashboard = () => {
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -47,22 +57,24 @@ const Dashboard = () => {
     { title: 'Cold Leads', value: stats.cold_leads, icon: Snowflake, gradient: 'from-forest-400 to-forest-600', ring: 'ring-forest-100' },
     { title: 'New Leads Today', value: stats.new_leads_today, icon: Calendar, gradient: 'from-champagne-400 to-champagne-600', ring: 'ring-champagne-100' },
   ]
+
+  const conversations = stats.recent_conversations || []
   
   return (
-    <div className="space-y-8">
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-forest-900 via-forest-800 to-forest-700 p-8 shadow-gold-lg">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-forest-900 via-forest-800 to-forest-700 p-5 sm:p-8 shadow-gold-lg">
         <div className="absolute -right-8 -top-8 w-48 h-48 bg-champagne-300/20 rounded-full blur-2xl" />
         <div className="absolute right-16 bottom-0 w-24 h-24 bg-sage-300/20 rounded-full blur-xl" />
-        <div className="relative flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-2 text-champagne-200 text-sm font-medium mb-2">
+        <div className="relative flex items-center justify-between gap-4">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 text-champagne-200 text-xs sm:text-sm font-medium mb-2">
               <Sparkles className="w-4 h-4" />
               <span>Welcome back</span>
             </div>
-            <h2 className="text-3xl font-bold text-light">Dashboard Overview</h2>
-            <p className="text-sage-100 mt-2 text-sm">Track your wedding planning leads and conversations at a glance.</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-light">Dashboard Overview</h2>
+            <p className="text-sage-100 mt-2 text-xs sm:text-sm">Track your wedding planning leads and conversations at a glance.</p>
           </div>
-          <div className="hidden md:flex items-center gap-3 bg-forest-700/60 backdrop-blur-sm rounded-xl px-5 py-3 border border-champagne-300/30">
+          <div className="hidden md:flex items-center gap-3 bg-forest-700/60 backdrop-blur-sm rounded-xl px-5 py-3 border border-champagne-300/30 flex-shrink-0">
             <TrendingUp className="w-5 h-5 text-champagne-200" />
             <div>
               <p className="text-xs text-sage-200">New today</p>
@@ -72,21 +84,21 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
         {cards.map((card, index) => {
           const Icon = card.icon
           return (
             <div
               key={index}
-              className="group relative bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-gold hover:-translate-y-1 transition-all duration-300"
+              className="group relative bg-white rounded-2xl p-4 sm:p-6 border border-gray-100 shadow-sm hover:shadow-gold hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-gray-500 text-sm font-medium">{card.title}</p>
-                  <p className="text-4xl font-bold text-gray-900 mt-2 tracking-tight">{card.value}</p>
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <p className="text-gray-500 text-xs sm:text-sm font-medium">{card.title}</p>
+                  <p className="text-2xl sm:text-4xl font-bold text-gray-900 mt-2 tracking-tight">{card.value}</p>
                 </div>
-                <div className={`p-3 rounded-xl bg-gradient-to-br ${card.gradient} ring-4 ${card.ring} shadow-sm group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon className="w-6 h-6 text-white" />
+                <div className={`p-2 sm:p-3 rounded-xl bg-gradient-to-br ${card.gradient} ring-4 ${card.ring} shadow-sm group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
               </div>
               <div className={`mt-4 h-1 w-12 rounded-full bg-gradient-to-r ${card.gradient} opacity-70`} />
@@ -96,16 +108,40 @@ const Dashboard = () => {
       </div>
       
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+        <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100 flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 className="text-lg font-bold text-gray-900">Recent Conversations</h3>
-            <p className="text-sm text-gray-500 mt-0.5">Latest activity from your website widget</p>
+            <h3 className="text-base sm:text-lg font-bold text-gray-900">Recent Conversations</h3>
+            <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Latest activity from your website widget</p>
           </div>
-          <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-            {stats.recent_conversations?.length || 0} recent
+          <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 whitespace-nowrap">
+            {conversations.length} recent
           </span>
         </div>
-        <div className="overflow-x-auto">
+
+        <div className="md:hidden divide-y divide-gray-100">
+          {conversations.map((conv, index) => (
+            <div key={index} className="p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-gray-900 truncate">{conv.name}</p>
+                  <p className="text-xs font-mono text-gray-400 truncate mt-0.5">{conv.session_id.substring(0, 8)}...</p>
+                </div>
+                <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full border capitalize flex-shrink-0 ${qualificationStyles[conv.qualification] || qualificationStyles.cold}`}>
+                  {conv.qualification}
+                </span>
+              </div>
+              <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
+                <span>{conv.message_count} messages</span>
+                <span>{formatDateTime(conv.last_activity)}</span>
+              </div>
+            </div>
+          ))}
+          {conversations.length === 0 && (
+            <p className="px-4 py-12 text-center text-sm text-gray-400">No conversations yet.</p>
+          )}
+        </div>
+
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50/80">
@@ -117,7 +153,7 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {stats.recent_conversations?.map((conv, index) => (
+              {conversations.map((conv, index) => (
                 <tr key={index} className="hover:bg-amber-50/40 transition-colors">
                   <td className="px-6 py-4 text-sm font-mono text-gray-500">{conv.session_id.substring(0, 8)}...</td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">{conv.name}</td>
@@ -127,12 +163,10 @@ const Dashboard = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-700">{conv.message_count}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
-                    {new Date(conv.last_activity).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, month: 'short', day: 'numeric', year: 'numeric' })}
-                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-500">{formatDateTime(conv.last_activity)}</td>
                 </tr>
               ))}
-              {(!stats.recent_conversations || stats.recent_conversations.length === 0) && (
+              {conversations.length === 0 && (
                 <tr>
                   <td colSpan="5" className="px-6 py-12 text-center text-sm text-gray-400">
                     No conversations yet.
