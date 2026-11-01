@@ -1,14 +1,21 @@
 import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { authAPI, clearToken } from '../services/api'
 import { LayoutDashboard, MessageSquare, Users, BookOpen, Settings, LogOut } from 'lucide-react'
 
 const Layout = ({ children }) => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_token')
-    navigate('/login')
+  const handleLogout = async () => {
+    try {
+      await authAPI.logout()
+    } catch (err) {
+      // Token may already be invalid; clear locally regardless
+    } finally {
+      clearToken()
+      navigate('/login')
+    }
   }
   
   const navItems = [

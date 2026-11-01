@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { authAPI } from '../services/api'
+import { authAPI, setToken } from '../services/api'
 import { Lock, User, ArrowRight, Sparkles } from 'lucide-react'
 
 const Login = () => {
@@ -15,7 +15,10 @@ const Login = () => {
     setError('')
     setLoading(true)
     try {
-      await authAPI.login(username, password)
+      const res = await authAPI.login(username, password)
+      if (res.data.token) {
+        setToken(res.data.token)
+      }
       navigate('/')
     } catch (err) {
       setError('Invalid credentials')

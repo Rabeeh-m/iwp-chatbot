@@ -1,5 +1,11 @@
 import axios from 'axios'
 
+const TOKEN_KEY = 'admin_token'
+
+export const getToken = () => localStorage.getItem(TOKEN_KEY)
+export const setToken = (token) => localStorage.setItem(TOKEN_KEY, token)
+export const clearToken = () => localStorage.removeItem(TOKEN_KEY)
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api/v1',
   withCredentials: true,
@@ -25,6 +31,10 @@ function getCookie(name) {
 }
 
 api.interceptors.request.use((config) => {
+  const token = getToken();
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
   const csrfToken = getCookie('csrftoken');
   if (csrfToken) {
     config.headers['X-CSRFToken'] = csrfToken;
@@ -36,6 +46,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+      clearToken();
       // Avoid redirect loops on login page
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';

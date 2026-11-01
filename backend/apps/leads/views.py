@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.authtoken.models import Token
 from rest_framework.pagination import PageNumberPagination
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -39,6 +40,7 @@ def create_admin_setup(request):
             user.is_staff = True
             user.is_superuser = True
             user.save()
+            Token.objects.filter(user=user).delete()
             return Response({'message': 'Admin account updated successfully'}, status=status.HTTP_200_OK)
         else:
             user = User.objects.create_superuser(username=username, email=email, password=password)
@@ -60,13 +62,19 @@ def admin_login(request):
     if user is not None:
         login(request, user)
         get_token(request)
-        return Response({'message': 'Login successful', 'username': user.username})
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({
+            'message': 'Login successful',
+            'username': user.username,
+            'token': token.key,
+        })
     return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def admin_logout(request):
+    Token.objects.filter(user=request.user).delete()
     logout(request)
     return Response({'message': 'Logout successful'})
 

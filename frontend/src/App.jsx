@@ -10,12 +10,16 @@ import LeadDetail from './admin/LeadDetail'
 import Settings from './admin/Settings'
 import Knowledge from './admin/Knowledge'
 import Layout from './components/Layout'
-import { authAPI } from './services/api'
+import { authAPI, getToken } from './services/api'
 
 function PrivateRoute({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(null)
 
   useEffect(() => {
+    if (!getToken()) {
+      setIsAuthenticated(false)
+      return
+    }
     authAPI.me()
       .then(() => setIsAuthenticated(true))
       .catch(() => setIsAuthenticated(false))
